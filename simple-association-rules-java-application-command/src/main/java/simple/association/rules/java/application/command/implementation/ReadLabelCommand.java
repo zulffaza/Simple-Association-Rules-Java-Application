@@ -22,7 +22,7 @@ public class ReadLabelCommand implements Command<ReadLabelRequest, ReadLabelResp
     private static final Integer FIRST_LABEL = 1;
 
     @Override
-    public ReadLabelResponse execute(ReadLabelRequest readLabelRequest) throws Exception {
+    public ReadLabelResponse execute(ReadLabelRequest readLabelRequest) {
         String firstLine = readLabelRequest.getLines().get(FIRST_LINE_INDEX);
         Integer labelCount = countLabel(firstLine);
         Label label = createLabel(labelCount);

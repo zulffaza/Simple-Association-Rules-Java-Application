@@ -9,7 +9,7 @@ import simple.association.rules.java.application.model.DataSet;
 import simple.association.rules.java.application.model.Label;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -33,11 +33,11 @@ public class ReadDataSetCommandTest {
     public void readDataSet_success() throws Exception {
         ReadDatasetRequest readDatasetRequest = ReadDatasetRequest.builder()
                 .lines(createLines())
-                .label(createLabel())
+                .label(createLabel(1, 2, 3, 4, 5))
                 .build();
 
         ReadDatasetResponse expectedReadDatasetResponse = ReadDatasetResponse.builder()
-                .dataSets(createExpectedResult())
+                .dataSets(createExpectedDataSets())
                 .build();
 
         ReadDatasetResponse readDatasetResponse = command.execute(readDatasetRequest);
@@ -50,7 +50,7 @@ public class ReadDataSetCommandTest {
     public void readDataSet_failed_labelIsEmpty() throws Exception {
         ReadDatasetRequest readDatasetRequest = ReadDatasetRequest.builder()
                 .lines(createLines())
-                .label(createEmptyLabel())
+                .label(createLabel())
                 .build();
 
         command.execute(readDatasetRequest);
@@ -59,7 +59,7 @@ public class ReadDataSetCommandTest {
     @Test(expected = NullPointerException.class)
     public void readDataSet_failed_lineIsNull() throws Exception {
         ReadDatasetRequest readDatasetRequest = ReadDatasetRequest.builder()
-                .label(createEmptyLabel())
+                .label(createLabel())
                 .build();
 
         command.execute(readDatasetRequest);
@@ -83,57 +83,24 @@ public class ReadDataSetCommandTest {
         return lines;
     }
 
-    private Label createLabel() {
-        List<Integer> labels = new ArrayList<>();
-
-        for (int i = 1; i <= 5; i++)
-            labels.add(i);
-
+    private Label createLabel(Integer... labels) {
         return Label.builder()
-                .labels(labels)
+                .labels(Arrays.asList(labels))
                 .build();
     }
 
-    private Label createEmptyLabel() {
-        return Label.builder()
-                .labels(Collections.emptyList())
-                .build();
+    private List<DataSet> createExpectedDataSets() {
+        return Arrays.asList(
+                createDataSet(1, 2, 4, 5),
+                createDataSet(2, 2, 5)
+        );
     }
 
-    private List<DataSet> createExpectedResult() {
-        List<DataSet> dataSets = new ArrayList<>();
-
-        dataSets.add(createExpectedDataSet1());
-        dataSets.add(createExpectedDataSet2());
-
-        return dataSets;
-    }
-
-    private DataSet createExpectedDataSet1() {
-        List<Integer> labels = new ArrayList<>();
-
-        labels.add(2);
-        labels.add(4);
-        labels.add(5);
-
+    private DataSet createDataSet(Integer id, Integer... labels) {
         return DataSet.builder()
-                .id(1)
+                .id(id)
                 .label(Label.builder()
-                        .labels(labels)
-                        .build())
-                .build();
-    }
-
-    private DataSet createExpectedDataSet2() {
-        List<Integer> labels = new ArrayList<>();
-
-        labels.add(2);
-        labels.add(5);
-
-        return DataSet.builder()
-                .id(2)
-                .label(Label.builder()
-                        .labels(labels)
+                        .labels(Arrays.asList(labels))
                         .build())
                 .build();
     }

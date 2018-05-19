@@ -8,6 +8,7 @@ import simple.association.rules.java.application.command.model.response.ReadLabe
 import simple.association.rules.java.application.model.Label;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ReadLabelCommandTest {
                 .build();
 
         ReadLabelResponse expectedReadLabelResponse = ReadLabelResponse.builder()
-                .label(createExpectedLabel())
+                .label(createExpectedLabel(1, 2, 3, 4, 5))
                 .build();
 
         ReadLabelResponse readLabelResponse = command.execute(readLabelRequest);
@@ -70,14 +71,9 @@ public class ReadLabelCommandTest {
         return lines;
     }
 
-    private Label createExpectedLabel() {
-        List<Integer> labels = new ArrayList<>();
-
-        for (int i = 1; i <= 5; i++)
-            labels.add(i);
-
+    private Label createExpectedLabel(Integer... labels) {
         return Label.builder()
-                .labels(labels)
+                .labels(Arrays.asList(labels))
                 .build();
     }
 }

@@ -14,5 +14,6 @@ import lombok.Data;
 public class Apriori {
 
     private Label label;
+
     private Double support;
 }

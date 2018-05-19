@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class ReadFileDataSetCommand implements Command<ReadFileDataSetRequest, ReadFileDataSetResponse> {
 
     @Override
-    public ReadFileDataSetResponse execute(ReadFileDataSetRequest readFileDataSetRequest) throws Exception {
+    public ReadFileDataSetResponse execute(ReadFileDataSetRequest readFileDataSetRequest) {
         InputStream inputStream = getFileInputStream(readFileDataSetRequest.getPathname());
         List<String> lines = readFileLines(inputStream);
 

@@ -33,7 +33,7 @@ public class ReadFileDataSetCommandTest {
                 .build();
 
         ReadFileDataSetResponse expectedReadFileDataSetResponse = ReadFileDataSetResponse.builder()
-                .lines(createExpectedResult())
+                .lines(createExpectedLines())
                 .build();
 
         ReadFileDataSetResponse readFileDataSetResponse = command.execute(readFileDataSetRequest);
@@ -59,7 +59,7 @@ public class ReadFileDataSetCommandTest {
         command.execute(readFileDataSetRequest);
     }
 
-    private List<String> createExpectedResult() {
+    private List<String> createExpectedLines() {
         List<String> lines = new ArrayList<>();
 
         lines.add("1 0 1 0 1 1");

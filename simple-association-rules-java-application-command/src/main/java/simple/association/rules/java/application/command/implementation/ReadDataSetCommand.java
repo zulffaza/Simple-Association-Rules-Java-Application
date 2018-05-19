@@ -24,7 +24,7 @@ public class ReadDataSetCommand implements Command<ReadDatasetRequest, ReadDatas
     private static final Integer DATA_TRUE = 1;
 
     @Override
-    public ReadDatasetResponse execute(ReadDatasetRequest readDatasetRequest) throws Exception {
+    public ReadDatasetResponse execute(ReadDatasetRequest readDatasetRequest) {
         List<DataSet> dataSets = new ArrayList<>();
 
         readDatasetRequest.getLines().forEach(line ->

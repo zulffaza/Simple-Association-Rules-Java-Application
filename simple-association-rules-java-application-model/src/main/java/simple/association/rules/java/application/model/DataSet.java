@@ -14,5 +14,6 @@ import lombok.Data;
 public class DataSet {
 
     private Integer id;
+
     private Label label;
 }
