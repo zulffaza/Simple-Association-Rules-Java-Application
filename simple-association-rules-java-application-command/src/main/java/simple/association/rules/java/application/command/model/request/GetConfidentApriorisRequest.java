@@ -1,8 +1,10 @@
-package simple.association.rules.java.application.command.model.response;
+package simple.association.rules.java.application.command.model.request;
 
 import lombok.Builder;
 import lombok.Data;
 import simple.association.rules.java.application.model.Apriori;
+
+import java.util.List;
 
 /**
  * @author Faza Zulfika P P
@@ -12,7 +14,11 @@ import simple.association.rules.java.application.model.Apriori;
 
 @Data
 @Builder
-public class GetLastApriorisResponse {
+public class GetConfidentApriorisRequest {
+
+    private List<Apriori> firstAprioris;
 
     private Apriori lastApriori;
+
+    private Double minimumConfidence;
 }

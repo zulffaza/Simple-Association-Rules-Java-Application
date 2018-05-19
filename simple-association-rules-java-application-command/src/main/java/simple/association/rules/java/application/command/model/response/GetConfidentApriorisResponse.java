@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import simple.association.rules.java.application.model.Apriori;
 
+import java.util.List;
+
 /**
  * @author Faza Zulfika P P
  * @version 1.0.0
@@ -12,7 +14,7 @@ import simple.association.rules.java.application.model.Apriori;
 
 @Data
 @Builder
-public class GetLastApriorisResponse {
+public class GetConfidentApriorisResponse {
 
-    private Apriori lastApriori;
+    private List<Apriori> confidentAprioris;
 }

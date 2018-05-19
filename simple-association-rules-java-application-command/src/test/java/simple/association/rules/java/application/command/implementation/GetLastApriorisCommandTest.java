@@ -10,7 +10,6 @@ import simple.association.rules.java.application.model.DataSet;
 import simple.association.rules.java.application.model.Label;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -39,7 +38,7 @@ public class GetLastApriorisCommandTest {
                 .build();
 
         GetLastApriorisResponse expectedGetLastApriorisResponse = GetLastApriorisResponse.builder()
-                .lastAprioris(createExpectedAprioris())
+                .lastApriori(createExpectedApriori())
                 .build();
 
         GetLastApriorisResponse getLastApriorisResponse = command.execute(getLastApriorisRequest);
@@ -105,9 +104,8 @@ public class GetLastApriorisCommandTest {
         );
     }
 
-    private List<Apriori> createExpectedAprioris() {
-        return Collections.singletonList(
-                createApriori(0.5, 2, 4, 5));
+    private Apriori createExpectedApriori() {
+        return createApriori(0.5, 2, 4, 5);
     }
 
     private Apriori createApriori(Double support, Integer... labels) {

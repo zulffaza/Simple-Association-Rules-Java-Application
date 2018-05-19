@@ -23,6 +23,7 @@ public class GetLastApriorisCommand implements Command<GetLastApriorisRequest, G
 
     private static final Integer FINAL_APRIORIS_SIZE = 1;
     private static final Integer NEXT_INDEX = 1;
+    private static final Integer LAST_INDEX = 0;
 
     @Override
     public GetLastApriorisResponse execute(GetLastApriorisRequest getLastApriorisRequest) {
@@ -32,7 +33,7 @@ public class GetLastApriorisCommand implements Command<GetLastApriorisRequest, G
             aprioris = createNextAprioris(aprioris, getLastApriorisRequest);
 
         return GetLastApriorisResponse.builder()
-                .lastAprioris(aprioris)
+                .lastApriori(aprioris.get(LAST_INDEX))
                 .build();
     }
 

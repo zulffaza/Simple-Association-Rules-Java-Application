@@ -16,4 +16,6 @@ public class Apriori {
     private Label label;
 
     private Double support;
+
+    private Double confidence;
 }
