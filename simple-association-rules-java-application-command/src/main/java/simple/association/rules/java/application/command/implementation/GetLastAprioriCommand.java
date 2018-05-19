@@ -1,8 +1,8 @@
 package simple.association.rules.java.application.command.implementation;
 
 import simple.association.rules.java.application.command.Command;
-import simple.association.rules.java.application.command.model.request.GetLastApriorisRequest;
-import simple.association.rules.java.application.command.model.response.GetLastApriorisResponse;
+import simple.association.rules.java.application.command.model.request.GetLastAprioriRequest;
+import simple.association.rules.java.application.command.model.response.GetLastAprioriResponse;
 import simple.association.rules.java.application.command.util.AprioriHelper;
 import simple.association.rules.java.application.model.Apriori;
 import simple.association.rules.java.application.model.Label;
@@ -19,20 +19,20 @@ import java.util.stream.Collectors;
  * @since 20 May 2018
  */
 
-public class GetLastApriorisCommand implements Command<GetLastApriorisRequest, GetLastApriorisResponse> {
+public class GetLastAprioriCommand implements Command<GetLastAprioriRequest, GetLastAprioriResponse> {
 
     private static final Integer FINAL_APRIORIS_SIZE = 1;
     private static final Integer NEXT_INDEX = 1;
     private static final Integer LAST_INDEX = 0;
 
     @Override
-    public GetLastApriorisResponse execute(GetLastApriorisRequest getLastApriorisRequest) {
-        List<Apriori> aprioris = new ArrayList<>(getLastApriorisRequest.getFirstAprioris());
+    public GetLastAprioriResponse execute(GetLastAprioriRequest getLastAprioriRequest) {
+        List<Apriori> aprioris = new ArrayList<>(getLastAprioriRequest.getFirstAprioris());
 
         while (!isComplete(aprioris))
-            aprioris = createNextAprioris(aprioris, getLastApriorisRequest);
+            aprioris = createNextAprioris(aprioris, getLastAprioriRequest);
 
-        return GetLastApriorisResponse.builder()
+        return GetLastAprioriResponse.builder()
                 .lastApriori(aprioris.get(LAST_INDEX))
                 .build();
     }
@@ -41,15 +41,15 @@ public class GetLastApriorisCommand implements Command<GetLastApriorisRequest, G
         return aprioris.size() == FINAL_APRIORIS_SIZE;
     }
 
-    private List<Apriori> createNextAprioris(List<Apriori> aprioris, GetLastApriorisRequest getLastApriorisRequest) {
+    private List<Apriori> createNextAprioris(List<Apriori> aprioris, GetLastAprioriRequest getLastAprioriRequest) {
         AprioriHelper aprioriHelper = AprioriHelper.getInstance();
         List<Apriori> nextAprioris = nextAprioris(aprioris, aprioriHelper);
 
         return nextAprioris.stream()
                 .peek(apriori ->
-                        aprioriHelper.calculateSupport(apriori, getLastApriorisRequest.getDataSets()))
+                        aprioriHelper.calculateSupport(apriori, getLastAprioriRequest.getDataSets()))
                 .filter(apriori ->
-                        aprioriHelper.checkSupport(apriori, getLastApriorisRequest.getMinimumSupport()))
+                        aprioriHelper.checkSupport(apriori, getLastAprioriRequest.getMinimumSupport()))
                 .collect(Collectors.toList());
     }
 

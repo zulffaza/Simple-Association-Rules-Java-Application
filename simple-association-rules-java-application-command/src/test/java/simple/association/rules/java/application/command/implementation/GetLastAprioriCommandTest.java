@@ -3,8 +3,8 @@ package simple.association.rules.java.application.command.implementation;
 import org.junit.Before;
 import org.junit.Test;
 import simple.association.rules.java.application.command.Command;
-import simple.association.rules.java.application.command.model.request.GetLastApriorisRequest;
-import simple.association.rules.java.application.command.model.response.GetLastApriorisResponse;
+import simple.association.rules.java.application.command.model.request.GetLastAprioriRequest;
+import simple.association.rules.java.application.command.model.response.GetLastAprioriResponse;
 import simple.association.rules.java.application.model.Apriori;
 import simple.association.rules.java.application.model.DataSet;
 import simple.association.rules.java.application.model.Label;
@@ -20,64 +20,64 @@ import static org.junit.Assert.*;
  * @since 20 May 2018
  */
 
-public class GetLastApriorisCommandTest {
+public class GetLastAprioriCommandTest {
 
-    private Command<GetLastApriorisRequest, GetLastApriorisResponse> command;
+    private Command<GetLastAprioriRequest, GetLastAprioriResponse> command;
 
     @Before
     public void setUp() {
-        command = new GetLastApriorisCommand();
+        command = new GetLastAprioriCommand();
     }
 
     @Test
     public void getLastAprioris_success() throws Exception {
-        GetLastApriorisRequest getLastApriorisRequest = GetLastApriorisRequest.builder()
+        GetLastAprioriRequest getLastAprioriRequest = GetLastAprioriRequest.builder()
                 .dataSets(createDataSets())
                 .firstAprioris(createFirstAprioris())
                 .minimumSupport(0.5)
                 .build();
 
-        GetLastApriorisResponse expectedGetLastApriorisResponse = GetLastApriorisResponse.builder()
+        GetLastAprioriResponse expectedGetLastAprioriResponse = GetLastAprioriResponse.builder()
                 .lastApriori(createExpectedApriori())
                 .build();
 
-        GetLastApriorisResponse getLastApriorisResponse = command.execute(getLastApriorisRequest);
+        GetLastAprioriResponse getLastAprioriResponse = command.execute(getLastAprioriRequest);
 
-        assertNotNull(getLastApriorisResponse);
-        assertEquals(expectedGetLastApriorisResponse, getLastApriorisResponse);
+        assertNotNull(getLastAprioriResponse);
+        assertEquals(expectedGetLastAprioriResponse, getLastAprioriResponse);
     }
 
     @Test(expected = NullPointerException.class)
     public void getLastAprioris_failed_dataSetsIsNull() throws Exception {
-        GetLastApriorisRequest getLastApriorisRequest = GetLastApriorisRequest.builder()
+        GetLastAprioriRequest getLastAprioriRequest = GetLastAprioriRequest.builder()
                 .dataSets(null)
                 .firstAprioris(createFirstAprioris())
                 .minimumSupport(0.5)
                 .build();
 
-        command.execute(getLastApriorisRequest);
+        command.execute(getLastAprioriRequest);
     }
 
     @Test(expected = NullPointerException.class)
     public void getLastAprioris_failed_firstApriorisIsNull() throws Exception {
-        GetLastApriorisRequest getLastApriorisRequest = GetLastApriorisRequest.builder()
+        GetLastAprioriRequest getLastAprioriRequest = GetLastAprioriRequest.builder()
                 .dataSets(createDataSets())
                 .firstAprioris(null)
                 .minimumSupport(0.5)
                 .build();
 
-        command.execute(getLastApriorisRequest);
+        command.execute(getLastAprioriRequest);
     }
 
     @Test(expected = NullPointerException.class)
     public void getLastAprioris_failed_minimumSupportIsNull() throws Exception {
-        GetLastApriorisRequest getLastApriorisRequest = GetLastApriorisRequest.builder()
+        GetLastAprioriRequest getLastAprioriRequest = GetLastAprioriRequest.builder()
                 .dataSets(createDataSets())
                 .firstAprioris(createFirstAprioris())
                 .minimumSupport(null)
                 .build();
 
-        command.execute(getLastApriorisRequest);
+        command.execute(getLastAprioriRequest);
     }
 
     private List<DataSet> createDataSets() {

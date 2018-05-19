@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class GetLastApriorisRequest {
+public class GetLastAprioriRequest {
 
     private List<DataSet> dataSets;
 

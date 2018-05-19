@@ -12,7 +12,7 @@ import simple.association.rules.java.application.model.Apriori;
 
 @Data
 @Builder
-public class GetLastApriorisResponse {
+public class GetLastAprioriResponse {
 
     private Apriori lastApriori;
 }
