@@ -21,8 +21,8 @@ import java.util.Scanner;
 
 public class Application {
 
-//    private static final String PATHNAME = "dataset-latihan.txt";
-    private static final String PATHNAME = "dataset-tugas.txt";
+    private static final String PATHNAME = "dataset-latihan.txt";
+//    private static final String PATHNAME = "dataset-tugas.txt";
 
     private static final Integer PERCENTAGE_TO_DECIMAL = 100;
 
