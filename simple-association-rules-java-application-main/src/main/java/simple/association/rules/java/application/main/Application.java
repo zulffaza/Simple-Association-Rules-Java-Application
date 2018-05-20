@@ -56,43 +56,30 @@ public class Application {
         List<String> lines = application.readFileDataSet(readFileDataSetRequest,
                 commandExecutor, commandExceptionHelper);
 
-        lines.forEach(System.out::println);
-        application.printNewLine();
-
         ReadLabelRequest readLabelRequest = application.createReadLabelRequest(lines);
         Label label = application.readLabel(readLabelRequest, commandExecutor, commandExceptionHelper);
 
-        System.out.println(label);
-        application.printNewLine();
-
         ReadDatasetRequest readDatasetRequest = application.createReadDatasetRequest(lines, label);
         List<DataSet> dataSets = application.readDataSet(readDatasetRequest, commandExecutor, commandExceptionHelper);
-
-        dataSets.forEach(System.out::println);
-        application.printNewLine();
 
         CreateFirstApriorisRequest createFirstApriorisRequest = application.createCreateFirstApriorisRequest(
                 dataSets, label, minimumSupport);
         List<Apriori> firstAprioris = application.createFirstAprioris(createFirstApriorisRequest,
                 commandExecutor, commandExceptionHelper);
 
-        firstAprioris.forEach(System.out::println);
-        application.printNewLine();
-
         GetLastAprioriRequest getLastAprioriRequest = application.createGetLastApriorisRequest(dataSets,
                 firstAprioris, minimumSupport);
         Apriori lastApriori = application.getLastApriori(getLastAprioriRequest,
                 commandExecutor, commandExceptionHelper);
-
-        System.out.println(lastApriori);
-        application.printNewLine();
 
         GetConfidentApriorisRequest getConfidentApriorisRequest = application.createGetConfidentApriorisRequest(
                 firstAprioris, lastApriori, minimumConfidence);
         List<Apriori> confidentAprioris = application.getConfidenceAprioris(getConfidentApriorisRequest,
                 commandExecutor, commandExceptionHelper);
 
-        confidentAprioris.forEach(System.out::println);
+        PrintConfidentApriorisRequest printConfidentApriorisRequest = application
+                .createPrintConfidentApriorisRequest(confidentAprioris);
+        application.printConfidentAprioris(printConfidentApriorisRequest, commandExecutor, commandExceptionHelper);
     }
 
     private Double getMinimumSupport(Scanner scanner) {
@@ -252,5 +239,22 @@ public class Application {
         }
 
         return getConfidentApriorisResponse.getConfidentAprioris();
+    }
+
+    private PrintConfidentApriorisRequest createPrintConfidentApriorisRequest(List<Apriori> confidentAprioris) {
+        return PrintConfidentApriorisRequest.builder()
+                .confidentAprioris(confidentAprioris)
+                .build();
+    }
+
+    private void printConfidentAprioris(PrintConfidentApriorisRequest printConfidentApriorisRequest,
+                                        CommandExecutor commandExecutor,
+                                        CommandExceptionHelper commandExceptionHelper) {
+        try {
+            commandExecutor.doExecute(
+                    PrintConfidentApriorisCommand.class, printConfidentApriorisRequest);
+        } catch (Exception e) {
+            commandExceptionHelper.printMessage("Error while running PrintConfidentApriorisCommand...");
+        }
     }
 }
