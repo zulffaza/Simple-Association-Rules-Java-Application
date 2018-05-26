@@ -72,7 +72,12 @@ public class ReadDataSetCommand implements Command<ReadDatasetRequest, ReadDatas
 
     private List<String> splitLine(String line) {
         return Arrays.stream(line.split("\\s"))
+                .filter(this::isNotEmpty)
                 .collect(Collectors.toList());
+    }
+
+    private Boolean isNotEmpty(String word) {
+        return !word.isEmpty();
     }
 
     private List<Integer> parseWordsToInteger(List<String> words) {

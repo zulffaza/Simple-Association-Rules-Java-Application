@@ -21,9 +21,6 @@ import java.util.Scanner;
 
 public class Application {
 
-    private static final String PATHNAME = "dataset-latihan.txt";
-//    private static final String PATHNAME = "dataset-tugas.txt";
-
     private static final Integer PERCENTAGE_TO_DECIMAL = 100;
 
     private static Application instance;
@@ -52,7 +49,7 @@ public class Application {
 
         application.printNewLine();
 
-        ReadFileDataSetRequest readFileDataSetRequest = application.createReadFileDataSetRequest();
+        ReadFileDataSetRequest readFileDataSetRequest = application.createReadFileDataSetRequest(args[0]);
         List<String> lines = application.readFileDataSet(readFileDataSetRequest,
                 commandExecutor, commandExceptionHelper);
 
@@ -98,9 +95,9 @@ public class Application {
         System.out.println();
     }
 
-    private ReadFileDataSetRequest createReadFileDataSetRequest() {
+    private ReadFileDataSetRequest createReadFileDataSetRequest(String pathname) {
         return ReadFileDataSetRequest.builder()
-                .pathname(PATHNAME)
+                .pathname(pathname)
                 .build();
     }
 

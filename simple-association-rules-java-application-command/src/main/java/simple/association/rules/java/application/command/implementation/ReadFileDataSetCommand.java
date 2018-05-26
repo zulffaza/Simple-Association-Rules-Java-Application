@@ -4,9 +4,7 @@ import simple.association.rules.java.application.command.Command;
 import simple.association.rules.java.application.command.model.request.ReadFileDataSetRequest;
 import simple.association.rules.java.application.command.model.response.ReadFileDataSetResponse;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +17,8 @@ import java.util.stream.Collectors;
 public class ReadFileDataSetCommand implements Command<ReadFileDataSetRequest, ReadFileDataSetResponse> {
 
     @Override
-    public ReadFileDataSetResponse execute(ReadFileDataSetRequest readFileDataSetRequest) {
+    public ReadFileDataSetResponse execute(ReadFileDataSetRequest readFileDataSetRequest)
+            throws Exception {
         InputStream inputStream = getFileInputStream(readFileDataSetRequest.getPathname());
         List<String> lines = readFileLines(inputStream);
 
@@ -28,8 +27,8 @@ public class ReadFileDataSetCommand implements Command<ReadFileDataSetRequest, R
                 .build();
     }
 
-    private InputStream getFileInputStream(String pathname) {
-        return ClassLoader.getSystemClassLoader().getResourceAsStream(pathname);
+    private InputStream getFileInputStream(String pathname) throws FileNotFoundException {
+        return new FileInputStream(pathname);
     }
 
     private List<String> readFileLines(InputStream inputStream) {
