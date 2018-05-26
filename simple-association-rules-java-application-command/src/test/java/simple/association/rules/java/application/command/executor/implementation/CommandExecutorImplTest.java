@@ -29,8 +29,10 @@ public class CommandExecutorImplTest {
 
     @Test
     public void doExecute_success() throws Exception {
+        String pathname = "..\\simple-association-rules-java-application-command\\src\\test\\resources\\dataset.txt";
+
         ReadFileDataSetRequest readFileDataSetRequest = ReadFileDataSetRequest.builder()
-                .pathname("dataset.txt")
+                .pathname(pathname)
                 .build();
 
         ReadFileDataSetResponse expectedReadFileDataSetResponse = ReadFileDataSetResponse.builder()
